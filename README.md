@@ -132,7 +132,7 @@ export const fetchFriends = Fetcher(
 Suppose the developer does not wish to dispatch a 
 success action immediately upon parsing a response from her
 endpoint. A typical scenario would be that she wishes to create
-an mugshot from data associated with a user and store this
+a mugshot from data associated with a user and store this
 created image in the redux store. This requires using the
 `image.onload` callback, rather than immediately dispatching a
 a success action containing a response from her endpoint.

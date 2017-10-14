@@ -48,19 +48,16 @@ const Fetcher = (actionPrefix, paramsFunc) => {
 
 	    dispatch(requestAction(key));
 
-	    return fetch(fetchURLFunc(key), fetchOptionsFunc(key)).then(
-	        response => response[responseType]().then(
-		    value => {
-                        if (typeof deferredSuccess !== 'undefined') {
-                            deferredSuccess(value);
-                            return;
-                        }
-                        dispatchSuccessAction(parseResponse(value))
-                    },
-		    error => dispatch(failureAction({ key, error }))
-	        ),
-	        error => dispatch(failureAction({ key, error }))
-	    )
+	    return fetch(fetchURLFunc(key), fetchOptionsFunc(key))
+                .then(response => response[responseType]())
+                .then(value => {
+                    if (typeof deferredSuccess !== 'undefined') {
+                        deferredSuccess(value);
+                        return;
+                    }
+                    dispatchSuccessAction(parseResponse(value))
+                })
+                .catch(error => dispatch(failureAction({key, error})))
         }
     }
 }

@@ -17,6 +17,7 @@ parsed, and one to signify that an error occured. She will also
 export a function which serves as the API to those action creators.
 
 ```
+// actions.js
 const fetchFriendsRequest = user => ({
     type: 'FETCH_FRIENDS_REQUEST',
     user
@@ -34,12 +35,12 @@ const fetchFriendsFailure = ({ user, error }) => ({
     error
 })
 
+// api.js
 export const fetchFriends = user => {
     return dispatch => {
-
         dispatch(fetchFriendsRequest(user))
-
-        return fetch('/api/' + user + '/friends/')
+        return 
+            fetch('/api/' + user + '/friends/')
             .then(response => response.json())
             .then(
                 friends => dispatch(fetchFriendsSuccess({
@@ -111,7 +112,7 @@ export const fetchFriends = Fetcher(
 
 ## Expecting responses which aren't JSON
 
-Suppose the developer now expects her /api/\<user\>/friends/ endpoint
+Suppose the developer now expects her /api/<user>/friends/ endpoint
 to return data in some sort of binary format. `responseType` solves
 this problem:
 
@@ -131,7 +132,7 @@ export const fetchFriends = Fetcher(
 Suppose the developer does not wish to dispatch a 
 success action immediately upon parsing a response from her
 endpoint. A typical scenario would be that she wishes to create
-a mugshot from data associated with a user and store this
+an mugshot from data associated with a user and store this
 created image in the redux store. This requires using the
 `image.onload` callback, rather than immediately dispatching a
 a success action containing a response from her endpoint.
